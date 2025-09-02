@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SiwCatalogApplication<SiwCatalog>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "it.uniroma3.SiwCatalog.SiwCatalogApplication",
+            "projectName": "SiwCatalog",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

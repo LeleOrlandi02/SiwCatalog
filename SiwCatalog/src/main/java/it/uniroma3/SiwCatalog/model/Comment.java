@@ -1,0 +1,67 @@
+package it.uniroma3.SiwCatalog.model;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+public class Comment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String content;
+    private LocalDateTime createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User author;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    // getters and setters
+
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getContent() {
+        return this.content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public User getAuthor() {
+        return this.author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public Product getProduct() {
+        return this.product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+    
+}
+

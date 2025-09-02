@@ -1,0 +1,102 @@
+/* Base layout */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3; /* chiaro, tipo Amazon */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container box */
+.container {
+    background-color: white;
+    padding: 40px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    width: 350px;
+    text-align: center;
+}
+
+/* Title */
+h2 {
+    margin-bottom: 20px;
+    color: #111;
+}
+
+/* Form */
+form {
+    margin-top: 20px;
+    text-align: left;
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+/* Labels */
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #111;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Submit button Amazon-style */
+button[type="submit"] {
+    background-color: #ffa41c; /* arancione Amazon */
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #111;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #f08804;
+}
+
+/* Links */
+p {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+a {
+    color: #007185; /* blu Amazon */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Error messages */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.success-message {
+    color: green;
+    font-size: 14px;
+    margin-bottom: 10px;
+}

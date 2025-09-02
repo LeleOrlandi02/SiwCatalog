@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Account - SiwCatalog</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <div class="container">
+        <h2>My Account</h2>
+
+        <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
+        <!-- aggiungi altri campi che hai in User -->
+
+        <div style="margin-top: 20px;">
+            <form th:action="@{/logout}" method="post" style="display:inline;">
+                <button type="submit" class="btn">Logout</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
