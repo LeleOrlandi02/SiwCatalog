@@ -19,6 +19,17 @@
             No Products Yet
         </div>
 
+        <form th:action="@{/home}" method="get" class="search-form"> 
+            <input
+                    type="text"
+                    name="keyword"
+                    class="search-input"                                 
+                    placeholder="Cerca per nome o tipologia"
+                    th:value="${param.keyword}"                           
+                    aria-label="Search products by name or type" />
+            <button type="submit" class="btn search-btn">Search</button> 
+        </form>
+        
         <div class="product-list" th:if="${!#lists.isEmpty(products)}">
             <div class="product-card" th:each="product : ${products}">
                 <h3 th:text="${product.name}">Product Name</h3>

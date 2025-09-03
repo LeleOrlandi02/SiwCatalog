@@ -16,10 +16,16 @@ public class ProductService {
 
     public Optional<Product> findById(Long id) { return productRepository.findById(id); }
 
-    public List<Product> findByType(String type) { return productRepository.findByType(type); }
+    public List<Product> findByNameContainingIgnoreCaseOrTypeContainingIgnoreCase(String name, String type) { return productRepository.findByNameContainingIgnoreCaseOrTypeContainingIgnoreCase(name, type); }
 
-    public List<Product> findByName(String name) { return productRepository.findByNameContainingIgnoreCase(name); }
-
+     public List<Product> search(String keyword) {
+        if (keyword != null && !keyword.isEmpty()) {
+            return productRepository.findByNameContainingIgnoreCaseOrTypeContainingIgnoreCase(keyword, keyword);
+        } else {
+            return productRepository.findAll();
+        }
+    }
+    
     public Product save(Product product) { return productRepository.save(product); }
 
     public void delete(Long id) { productRepository.deleteById(id); }
