@@ -20,7 +20,7 @@ public class ProductController {
         return "products/list";
     }
 
-     @GetMapping("/new")
+    @GetMapping("/new")
     @PreAuthorize("hasRole('ADMIN')")
     public String createForm(Model model) {
         model.addAttribute("product", new Product());
@@ -32,6 +32,13 @@ public class ProductController {
     public String save(@ModelAttribute Product product) {
         productService.save(product);
         return "redirect:/home";
+    }
+    
+    @GetMapping("/{id}")
+    public String view(Model model, @PathVariable Long id) {
+        model.addAttribute("product", productService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found")));
+        return "productDetails";
     }
 
     @GetMapping("/edit/{id}")

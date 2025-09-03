@@ -1,0 +1,103 @@
+/* Base layout */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+.header {
+    background-color: #fff;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.back-link {
+    text-decoration: none;
+    color: #111;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.account-box {
+    background-color: #232f3e;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.account-box a {
+    color: #ffa41c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.account-box a:hover {
+    text-decoration: underline;
+}
+
+/* Product container */
+.product-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 40px;
+}
+
+.product-image img {
+    max-width: 400px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+.product-info {
+    max-width: 500px;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.product-info h1 {
+    margin-top: 0;
+    font-size: 26px;
+    color: #111;
+}
+
+.product-info p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.product-info .description {
+    margin-top: 20px;
+    line-height: 1.5;
+}
+
+/* Comments section */
+.comments-section {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.comments-section h2 {
+    margin-top: 0;
+    font-size: 22px;
+    color: #111;
+}
+
+.no-comments {
+    color: #555;
+    font-style: italic;
+    margin-top: 10px;
+}
