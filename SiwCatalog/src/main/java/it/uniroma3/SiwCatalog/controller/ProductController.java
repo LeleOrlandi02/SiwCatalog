@@ -35,9 +35,12 @@ public class ProductController {
     }
     
     @GetMapping("/{id}")
-    public String view(Model model, @PathVariable Long id) {
+    public String view(Model model,
+                        @RequestParam(required = false) Long editId,
+                        @PathVariable Long id) {
         model.addAttribute("product", productService.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found")));
+        model.addAttribute("editId", editId);
         return "productDetails";
     }
 

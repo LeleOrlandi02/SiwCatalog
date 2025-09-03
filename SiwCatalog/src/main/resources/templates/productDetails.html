@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title th:text="${product.name}">Product Detail</title>
@@ -24,11 +25,45 @@
         </div>
     </div>
 
-    <!-- ⭐ Comments section placeholder -->
+    <!--  Comments section placeholder -->
     <div class="comments-section">
         <h2>Comments</h2>
-        <p class="no-comments">No comments yet. Be the first to comment!</p>
-        <!-- Qui dopo aggiungeremo form/commenti dinamici -->
+
+        <!--  Show "no comments" message -->
+        <p class="no-comments" th:if="${#lists.isEmpty(product.comments)}">No comments yet. Be the first to comment!</p>
+
+        <!--  List of comments -->
+        <div class="comment" th:each="comment : ${product.comments}">
+            <p class="comment-author">
+                <strong th:text="${comment.author.username}">Username</strong>
+                <span class="date" th:text="${#temporals.format(comment.createdAt, 'dd/MM/yyyy HH:mm')}">date</span>
+            </p>
+            <p class="comment-content" th:text="${comment.content}">Sample comment</p>
+
+            <!--  Edit/Delete buttons only for author -->
+            <div th:if="${editId == comment.id}">
+                <form th:action="@{/comments/update/{id}(id=${comment.id})}" method="post">
+                    <textarea name="content" th:text="${comment.content}" required></textarea>
+                    <button type="submit">Save</button>
+                    <a th:href="@{'/products/' + ${product.id}}">Cancel</a>
+                </form>
+            </div>
+
+            <!--  Admin can delete any comment -->
+            <div th:if="${isAdmin}" class="comment-actions">
+                <a th:href="@{/comments/delete/{id}(id=${comment.id})}" class="btn-small delete"
+                   onclick="return confirm('Admin: Delete this comment?')">Delete</a>
+            </div>
+        </div>
+
+        <!--  Comment form (only if logged in and not already commented) -->
+        <div sec:authorize="isAuthenticated()">
+            <form th:action="@{/comments}" method="post" class="comment-form">
+                <input type="hidden" name="product.id" th:value="${product.id}" />
+                <textarea name="content" placeholder="Write your comment..." required></textarea>
+                <button type="submit">Post Comment</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
