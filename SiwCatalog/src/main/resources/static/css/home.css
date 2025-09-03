@@ -187,9 +187,8 @@ h1 {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    /* Visual: keep same orange used across site */
     background-color: var(--brand-orange);
-    color: #111;                     /* follow your site style — if you prefer white, change to #fff */
+    color: #111;                     
     border: none;
     font-weight: bold;
     transition: background-color .15s ease, transform .06s ease;
