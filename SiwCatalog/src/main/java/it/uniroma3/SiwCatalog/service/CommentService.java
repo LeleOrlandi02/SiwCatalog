@@ -38,7 +38,10 @@ public class CommentService {
     }
     
     public Comment save(Comment comment) {
-        comment.setCreatedAt(LocalDateTime.now());
+        if (comment.getCreatedAt() == null) {   // 🔹 only set on first save
+            comment.setCreatedAt(LocalDateTime.now());
+        }        
+        
         return commentRepository.save(comment);
     }
 

@@ -59,10 +59,14 @@ public class CommentController {
         User user = userService.findByUsername(userDetails.getUsername()).orElseThrow();
         Product product = productService.findById(comment.getProduct().getId()).orElseThrow();
 
-        // ensure no duplicate
-        if (commentService.getCommentByAuthorAndProduct(user, product).isEmpty()) {
+        Optional<Comment> existing = commentService.getCommentByAuthorAndProduct(user, product);
+        if (existing.isPresent()) {
+            Comment old = existing.get();
+            old.setContent(comment.getContent());
+            commentService.save(old);
+        } else {
             comment.setAuthor(user);
-            comment.setProduct(product); // 🔹 prevent tampering
+            comment.setProduct(product);
             commentService.save(comment);
         }
         return "redirect:/products/" + product.getId();
@@ -97,20 +101,17 @@ public class CommentController {
             comment.setContent(formComment.getContent()); // only update content
             commentService.save(comment);
         }
+
         return "redirect:/products/" + comment.getProduct().getId();
     }
 
     // elimina commento (autore o admin)
     @PostMapping("/{productId}/comments/{commentId}/delete")
-    public String deleteComment(@PathVariable Long productId,
+    public String deleteComment(@PathVariable Long id,
                                 @PathVariable Long commentId,
                                 @AuthenticationPrincipal UserDetails userDetails) {
-        Product product = productService.findById(productId).orElseThrow();
-        User user = userService.findByUsername(userDetails.getUsername())
-                    .orElseThrow(() -> new RuntimeException("User not found"));;
-        Comment comment = commentService.getCommentsByProduct(product).stream()
-                .filter(c -> c.getId().equals(commentId))
-                .findFirst().orElseThrow();
+        Comment comment = commentService.findById(id).orElseThrow();
+        User user = userService.findByUsername(userDetails.getUsername()).orElseThrow();
 
         boolean isAdmin = userDetails.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
@@ -118,6 +119,6 @@ public class CommentController {
         if (comment.getAuthor().equals(user) || isAdmin) {
             commentService.deleteComment(comment);
         }
-        return "redirect:/products/" + productId;
+    return "redirect:/products/" + comment.getProduct().getId();
     }
 }

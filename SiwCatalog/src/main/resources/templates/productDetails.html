@@ -40,30 +40,26 @@
             </p>
             <p class="comment-content" th:text="${comment.content}">Sample comment</p>
 
-            <!--  Edit/Delete buttons only for author -->
-            <div th:if="${editId == comment.id}">
-                <form th:action="@{/comments/update/{id}(id=${comment.id})}" method="post">
-                    <textarea name="content" th:text="${comment.content}" required></textarea>
-                    <button type="submit">Save</button>
-                    <a th:href="@{'/products/' + ${product.id}}">Cancel</a>
-                </form>
-            </div>
-
-            <!--  Admin can delete any comment -->
-            <div th:if="${isAdmin}" class="comment-actions">
-                <a th:href="@{/comments/delete/{id}(id=${comment.id})}" class="btn-small delete"
-                   onclick="return confirm('Admin: Delete this comment?')">Delete</a>
-            </div>
+        <div th:if="${username == comment.author.username}">
+            <form th:action="@{/comments/update/{id}(id=${comment.id})}" method="post">
+                <textarea name="content" th:text="${comment.content}" required></textarea>
+                <button type="submit" class="btn-small">Save</button>
+            </form>
         </div>
 
-        <!--  Comment form (only if logged in and not already commented) -->
-        <div sec:authorize="isAuthenticated()">
+        <div th:if="${username == comment.author.username or isAdmin}">
+            <form th:action="@{/comments/delete/{id}(id=${comment.id})}" method="post">
+            <button type="submit" class="btn-small delete" onclick="return confirm('Delete this comment?')">Delete</button>
+            </form>
+        </div>
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
             <form th:action="@{/comments}" method="post" class="comment-form">
                 <input type="hidden" name="product.id" th:value="${product.id}" />
                 <textarea name="content" placeholder="Write your comment..." required></textarea>
                 <button type="submit">Post Comment</button>
             </form>
-        </div>
     </div>
 </body>
 </html>
